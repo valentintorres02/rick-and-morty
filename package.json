@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@genql/runtime": "^2.9.0",
     "@testing-library/jest-dom": "^5.16.4",
     "@testing-library/react": "^12.1.4",
     "@testing-library/user-event": "^13.5.0",
@@ -11,6 +12,7 @@
     "@types/react": "^17.0.43",
     "@types/react-dom": "^17.0.14",
     "autoprefixer": "^10.4.4",
+    "graphql": "^16.3.0",
     "postcss": "^8.4.12",
     "postcss-cli": "^9.1.0",
     "postcss-preset-env": "^7.4.3",
@@ -24,7 +26,9 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "codegen": "npm run genql:generate && prettier --write src/graphql",
+    "genql:generate": "dotenv -- cross-var genql --esm --output src/graphql/client --endpoint %REACT_APP_GRAPHQL_ENDPOINT%"
   },
   "eslintConfig": {
     "extends": "react-app"
@@ -40,5 +44,11 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "devDependencies": {
+    "@genql/cli": "^2.9.0",
+    "cross-var": "^1.1.0",
+    "dotenv-cli": "^5.1.0",
+    "prettier": "^2.6.2"
   }
 }
