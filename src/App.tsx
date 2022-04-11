@@ -1,7 +1,21 @@
+import "./App.css";
+
+import { Route, Routes } from "react-router-dom";
+import { Spin } from "antd";
+import { Suspense, lazy } from "react";
+
+const Home = lazy(() => import("./routes/Home.route"));
+const Character = lazy(() => import("./routes/Character.route"));
+const NotFound = lazy(() => import("./routes/NotFound.route"));
+
 export default function App() {
   return (
-    <div className="flex flex-col items-center justify-center h-screen text-red-300 bg-gradient-to-br from-gray-300 via-teal-700 to-gray-800">
-      <h1>React</h1>
-    </div>
+    <Suspense fallback={<Spin />}>
+      <Routes>
+        <Route index element={<Home />} />
+        <Route path="/character/:characterId" element={<Character />} />
+        <Route path="*" element={<NotFound />} />
+      </Routes>
+    </Suspense>
   );
 }
