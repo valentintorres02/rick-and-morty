@@ -114,6 +114,8 @@ Inside the component or view we use the `useSWR` hook to make the actual request
 yarn install
 ```
 
+Create .env file and fill it with .env.example keys
+
 ### Running dev
 
 ```sh
