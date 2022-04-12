@@ -4,22 +4,20 @@ import { Col, Row } from "antd";
 import CharactersCard, {
   SkeletonCharactersCard,
 } from "../components/Home/Home.charactersCard";
+import { DEFAULT_CHARACTERS_CARD, Status } from "../lib/utils";
 import { charactersListFetcher } from "../components/Home/Home.api";
 import { noRevalidateOption } from "../config/constants";
-import { DEFAULT_CHARACTERS_CARD, Status } from "../lib/utils";
 
 type Props = {};
 
 const HomeRoute: React.FC<Props> = () => {
-  const { data, error } = useSWR(
+  const { data: charactersList, error } = useSWR(
     "charactersList",
     charactersListFetcher,
     noRevalidateOption
   );
 
-  const isLoading = !error && !data;
-
-  const charactersList = data?.characters?.results;
+  const isLoading = !error && !charactersList;
 
   return (
     <div>
@@ -34,7 +32,7 @@ const HomeRoute: React.FC<Props> = () => {
         </Row>
       )}
       <Row gutter={[24, 24]}>
-        {charactersList?.map((character) => (
+        {charactersList?.results?.map((character) => (
           <Col sm={8} lg={6} xxl={4} xs={12}>
             <CharactersCard
               key={character.id}
