@@ -1,6 +1,6 @@
+import React from "react";
 import useSWR from "swr";
 import { Col, Row } from "antd";
-
 import CharactersCard, {
   SkeletonCharactersCard,
 } from "../components/Home/Home.charactersCard";
@@ -8,9 +8,7 @@ import { DEFAULT_CHARACTERS_CARD, Status } from "../lib/utils";
 import { charactersListFetcher } from "../components/Home/Home.api";
 import { noRevalidateOption } from "../config/constants";
 
-type Props = {};
-
-const HomeRoute: React.FC<Props> = () => {
+const HomeRoute: React.FC = () => {
   const { data: charactersList, error } = useSWR(
     "charactersList",
     charactersListFetcher,
@@ -25,15 +23,15 @@ const HomeRoute: React.FC<Props> = () => {
       {isLoading && (
         <Row gutter={[24, 24]}>
           {Array.from({ length: DEFAULT_CHARACTERS_CARD }, (_k, v) => (
-            <Col sm={8} lg={6} xxl={4} xs={12}>
-              <SkeletonCharactersCard key={v} />
+            <Col sm={8} lg={6} xxl={4} xs={12} key={`skeleton-${v}`}>
+              <SkeletonCharactersCard />
             </Col>
           ))}
         </Row>
       )}
       <Row gutter={[24, 24]}>
         {charactersList?.results?.map((character) => (
-          <Col sm={8} lg={6} xxl={4} xs={12}>
+          <Col sm={8} lg={6} xxl={4} xs={12} key={`character-${character.id}`}>
             <CharactersCard
               key={character.id}
               id={character.id}
