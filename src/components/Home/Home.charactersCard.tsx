@@ -1,3 +1,4 @@
+import classNames from "classnames";
 import React, { useState } from "react";
 import { Badge, Card } from "antd";
 import { Link } from "react-router-dom";
@@ -40,7 +41,7 @@ const ImageSkeleton: React.FC<ImageSkeletonProps> = ({ imageLoaded, id }) => {
   );
 };
 
-const ImageCard: React.FC<Props> = ({ id, name, image }) => {
+const ImageCard: React.FC<Props> = ({ id, name, image, status }) => {
   const [imageLoaded, setImageLoaded] = useState<boolean>(false);
 
   return (
@@ -48,7 +49,10 @@ const ImageCard: React.FC<Props> = ({ id, name, image }) => {
       <ImageSkeleton imageLoaded={imageLoaded} id={id} />
       <img
         data-testid={`character-image-${id}`}
-        className={imageLoaded ? "" : "hidden"}
+        className={classNames(
+          imageLoaded ? "" : "hidden",
+          status === "Dead" && "grayscale filter"
+        )}
         alt={name}
         src={image}
         onLoad={() => setImageLoaded(true)}
@@ -71,7 +75,9 @@ export const CharactersCard: React.FC<Props> = ({
           <Card
             className="p-4"
             hoverable
-            cover={<ImageCard id={id} name={name} image={image} />}
+            cover={
+              <ImageCard id={id} name={name} image={image} status={status} />
+            }
           >
             <Meta
               data-testid={`meta-${id}`}
