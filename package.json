@@ -55,7 +55,6 @@
     "@genql/cli": "^2.9.0",
     "cross-var": "^1.1.0",
     "dotenv-cli": "^5.1.0",
-    "husky": "^7.0.4",
     "prettier": "^2.6.2"
   }
 }
