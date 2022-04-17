@@ -23,6 +23,7 @@ The demo for this project can be found [here](https://rick-and-morty-app02.netli
  ┃ ┃ ┣ 📜ErrorBoundary.container.tsx
  ┃ ┃ ┗ 📜ErrorBoundary.fallback.tsx
  ┃ ┗ 📂Home
+ ┃ ┃ ┣ 📂__tests__
  ┃ ┃ ┣ 📜Home.api.tsx
  ┃ ┃ ┗ 📜Home.charactersCard.tsx
  ┣ 📂config
@@ -38,6 +39,8 @@ The demo for this project can be found [here](https://rick-and-morty-app02.netli
  ┃ ┃ ┗ 📜types.esm.js
  ┣ 📂lib
  ┃ ┣ 📜liveQueries.ts
+ ┃ ┣ 📜mocks.ts
+ ┃ ┣ 📜types.ts
  ┃ ┗ 📜utils.ts
  ┣ 📂routes
  ┃ ┣ 📜Character.route.tsx
