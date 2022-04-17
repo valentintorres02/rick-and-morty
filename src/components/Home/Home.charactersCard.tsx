@@ -1,7 +1,8 @@
 import React from "react";
 import { Badge, Card } from "antd";
 import { Link } from "react-router-dom";
-import { getBadgeColor, Status } from "../../lib/utils";
+
+import { Status, getBadgeColor } from "../../lib/utils";
 
 const { Meta } = Card;
 
@@ -12,7 +13,12 @@ type Props = {
   status: Status;
 };
 
-const CharactersCard: React.FC<Props> = ({ id, name, image, status }) => {
+export const CharactersCard: React.FC<Props> = ({
+  id,
+  name,
+  image,
+  status,
+}) => {
   return (
     <Link to={`/character/${id}`}>
       <Badge.Ribbon text={status} color={getBadgeColor(status)}>
@@ -32,5 +38,3 @@ export const SkeletonCharactersCard: React.FC = () => {
     </Card>
   );
 };
-
-export default CharactersCard;

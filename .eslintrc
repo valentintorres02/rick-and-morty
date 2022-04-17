@@ -25,7 +25,8 @@
       },
       "plugins": ["@typescript-eslint", "react", "react-hooks", "jsx-a11y"],
       "rules": {
-        "import/no-anonymous-default-export": "off"
+        "import/no-anonymous-default-export": "off",
+        "react/react-in-jsx-scope": "off"
       },
       "settings": {
         "react": {
