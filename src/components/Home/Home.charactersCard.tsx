@@ -87,7 +87,7 @@ export const CharactersCard: React.FC<Props> = ({
 
 export const SkeletonCharactersCard: React.FC = () => {
   return (
-    <Card className="mx-2 my-2 !bg-gray-300 aspect-square animate-pulse h-72">
+    <Card className="mx-2 my-2 !bg-gray-300 aspect-square animate-pulse h-80 w-full">
       <span className="ml-4 mt-[80%] flex h-[20px] w-[45%] animate-pulse rounded bg-gray-400 bottom-0" />
       <span className="ml-4 mt-3 flex h-[20px] w-[35%] animate-pulse rounded bg-gray-400 bottom-0" />
     </Card>
