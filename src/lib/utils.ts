@@ -3,6 +3,7 @@ import { RibbonProps } from "antd/lib/badge/Ribbon";
 import { render } from "@testing-library/react";
 
 import { Character } from "../graphql/client";
+import { Status } from "./types";
 import { TypeCharactersListFetcher } from "../components/Home/Home.api";
 
 /**
@@ -29,8 +30,6 @@ export function env(key: string): string {
 }
 
 export const DEFAULT_CHARACTERS_CARD = 8;
-
-export type Status = "Alive" | "Dead" | "unknown";
 
 export function getBadgeColor(status: Status): RibbonProps["color"] {
   switch (status) {

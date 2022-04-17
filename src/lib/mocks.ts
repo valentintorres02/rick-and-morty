@@ -1,5 +1,5 @@
 import { Character } from "../graphql/client";
-import { Status } from "./utils";
+import { Status } from "./types";
 
 interface ICharacter extends Character {
   status: Status;

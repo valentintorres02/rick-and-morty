@@ -1,14 +1,26 @@
-import InfiniteScroll from "react-infinite-scroll-component";
-import React from "react";
-import { Col, Row, Spin } from "antd";
+import React, { Suspense, useState } from "react";
+import { Col, Row } from "antd";
 
+import CharactersList from "./Home.charactersList";
+import SearchBar from "./Home.searchBar";
 import Separator from "../shared/Separator";
-import { CharactersCard, SkeletonCharactersCard } from "./Home.charactersCard";
-import { DEFAULT_CHARACTERS_CARD, Status } from "../../lib/utils";
-import { useCharacters } from "./Home.api";
+import { DEFAULT_CHARACTERS_CARD } from "../../lib/utils";
+import { SkeletonCharactersCard } from "./Home.charactersCard";
+
+const HomeSkeleton: React.FC = () => {
+  return (
+    <Row gutter={[24, 24]}>
+      {Array.from({ length: DEFAULT_CHARACTERS_CARD }, (_k, v) => (
+        <Col sm={8} lg={6} xxl={4} xs={12} key={`skeleton-${v}`}>
+          <SkeletonCharactersCard />
+        </Col>
+      ))}
+    </Row>
+  );
+};
 
 const HomeContainer: React.FC = () => {
-  const { charactersList, isLoading, setSize, size } = useCharacters();
+  const [nameFilter, setNameFilter] = useState<string>("");
 
   return (
     <div>
@@ -18,47 +30,10 @@ const HomeContainer: React.FC = () => {
         <h3 className="text-lg">Characters</h3>
         <Separator />
       </div>
-      {isLoading && (
-        <Row gutter={[24, 24]}>
-          {Array.from({ length: DEFAULT_CHARACTERS_CARD }, (_k, v) => (
-            <Col sm={8} lg={6} xxl={4} xs={12} key={`skeleton-${v}`}>
-              <SkeletonCharactersCard />
-            </Col>
-          ))}
-        </Row>
-      )}
-      <InfiniteScroll
-        next={() => setSize(size + 1)}
-        hasMore={true}
-        loader={
-          <div className="flex justify-center py-8">
-            <Spin />
-          </div>
-        }
-        endMessage={<p>No more data</p>}
-        dataLength={charactersList?.length ?? 0}
-      >
-        <Row gutter={[24, 24]}>
-          {charactersList?.map((character) => (
-            <Col
-              sm={8}
-              lg={6}
-              xxl={4}
-              xs={12}
-              key={`character-${character?.id}`}
-            >
-              <CharactersCard
-                key={character.id}
-                id={character.id}
-                image={character.image}
-                name={character.name}
-                status={character.status as Status}
-                created={character.created}
-              />
-            </Col>
-          ))}
-        </Row>
-      </InfiniteScroll>
+      <SearchBar setNameFilter={setNameFilter} />
+      <Suspense fallback={<HomeSkeleton />}>
+        <CharactersList nameFilter={nameFilter} />
+      </Suspense>
     </div>
   );
 };
