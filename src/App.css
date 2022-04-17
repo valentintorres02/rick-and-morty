@@ -1,6 +1,69 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
 @import "~antd/dist/antd.css";
 
 .ant-row-flex,
 .ant-row {
   margin: 0 !important;
+}
+
+@layer base {
+  body {
+    @apply font-sans;
+    @apply text-sm;
+    @apply font-normal;
+    @apply text-neutral-700;
+    @apply bg-slate-50;
+  }
+
+  h2 {
+    @apply text-2xl;
+    @apply font-normal;
+    @apply leading-none;
+  }
+
+  h3 {
+    @apply text-xl;
+    @apply font-normal;
+    @apply leading-none;
+  }
+}
+
+/* Works on Firefox */
+.scroller {
+  scrollbar-width: thin;
+  scrollbar-color: #7c7c7c #bebebe;
+}
+
+/* width */
+.scroller::-webkit-scrollbar {
+  @apply w-2;
+  @apply h-2;
+}
+
+/* Track */
+.scroller::-webkit-scrollbar-track {
+  background: #f2f2f2;
+}
+
+/* Handle */
+.scroller::-webkit-scrollbar-thumb {
+  background: #bebebe;
+  border-radius: 20px;
+}
+
+/* Corner */
+.scroller::-webkit-scrollbar-corner {
+  background: #f1f1f1;
+}
+
+/* Handle on hover */
+.scroller::-webkit-scrollbar-thumb:hover {
+  background: #7c7c7c;
+}
+
+/* Handle horizontal */
+.scroller::-webkit-scrollbar-thumb:horizontal {
+  @apply w-2;
 }

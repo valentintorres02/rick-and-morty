@@ -1,4 +1,10 @@
+import { MemoryRouter } from "react-router-dom";
 import { RibbonProps } from "antd/lib/badge/Ribbon";
+import { render } from "@testing-library/react";
+
+import { Character } from "../graphql/client";
+import { Status } from "./types";
+import { TypeCharactersListFetcher } from "../components/Home/Home.api";
 
 /**
  * Get an environment variable by name. This function will throw
@@ -25,8 +31,6 @@ export function env(key: string): string {
 
 export const DEFAULT_CHARACTERS_CARD = 8;
 
-export type Status = "Alive" | "Dead" | "unknown";
-
 export function getBadgeColor(status: Status): RibbonProps["color"] {
   switch (status) {
     case "Alive":
@@ -37,3 +41,27 @@ export function getBadgeColor(status: Status): RibbonProps["color"] {
       return "magenta";
   }
 }
+
+export function combineCharactersList(lists: TypeCharactersListFetcher[]) {
+  const combinedList: Character[] = [];
+
+  lists.forEach((list) => {
+    list?.results?.forEach((character) => {
+      combinedList.push(character as Character);
+    });
+  });
+
+  return combinedList;
+}
+
+export function renderWithRouter(ui: JSX.Element, { route = "/" } = {}) {
+  window.history.pushState({}, "Test page", route);
+
+  return render(ui, { wrapper: MemoryRouter });
+}
+
+export const formatDate = (date: Date, lang = navigator.language): string => {
+  return new Intl.DateTimeFormat(lang, {
+    dateStyle: "long",
+  }).format(date);
+};

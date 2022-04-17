@@ -1,10 +1,7 @@
 import { Button } from "antd";
-import React from "react";
 import { useNavigate } from "react-router-dom";
 
-type Props = {};
-
-const NotFoundRoute = (props: Props) => {
+const NotFoundRoute: React.FC = () => {
   const navigate = useNavigate();
 
   return (

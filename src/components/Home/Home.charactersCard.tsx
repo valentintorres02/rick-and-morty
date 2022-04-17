@@ -1,7 +1,11 @@
-import React from "react";
+import classNames from "classnames";
+import React, { useState } from "react";
 import { Badge, Card } from "antd";
 import { Link } from "react-router-dom";
-import { getBadgeColor, Status } from "../../lib/utils";
+import { PictureOutlined } from "@ant-design/icons";
+
+import { Status } from "../../lib/types";
+import { formatDate, getBadgeColor } from "../../lib/utils";
 
 const { Meta } = Card;
 
@@ -9,28 +13,89 @@ type Props = {
   id?: string;
   name?: string;
   image?: string;
-  status: Status;
+  status?: Status;
+  created?: string;
 };
 
-const CharactersCard: React.FC<Props> = ({ id, name, image, status }) => {
+type ImageSkeletonProps = {
+  imageLoaded: boolean;
+  id?: string;
+};
+
+const ImageSkeleton: React.FC<ImageSkeletonProps> = ({ imageLoaded, id }) => {
   return (
-    <Link to={`/character/${id}`}>
-      <Badge.Ribbon text={status} color={getBadgeColor(status)}>
-        <Card className="p-4" hoverable cover={<img alt={name} src={image} />}>
-          <Meta title={name} description={name} />
-        </Card>
-      </Badge.Ribbon>
-    </Link>
+    <div
+      className={imageLoaded ? "hidden" : ""}
+      data-testid={`skeleton-image-${id}`}
+    >
+      <span
+        className={
+          "mx-auto block h-64 w-full animate-pulse rounded bg-gray-300"
+        }
+      >
+        <div className="flex items-center justify-center w-full h-full">
+          <PictureOutlined className="text-6xl text-gray-600" />
+        </div>
+      </span>
+    </div>
   );
 };
 
-export const SkeletonCharactersCard: React.FC<{ key: number }> = ({ key }) => {
+const ImageCard: React.FC<Props> = ({ id, name, image, status }) => {
+  const [imageLoaded, setImageLoaded] = useState<boolean>(false);
+
   return (
-    <Card className="mx-2 my-2 !bg-gray-300 aspect-square animate-pulse h-96">
+    <>
+      <ImageSkeleton imageLoaded={imageLoaded} id={id} />
+      <img
+        data-testid={`character-image-${id}`}
+        className={classNames(
+          imageLoaded ? "" : "hidden",
+          status === "Dead" && "grayscale filter"
+        )}
+        alt={name}
+        src={image}
+        onLoad={() => setImageLoaded(true)}
+      />
+    </>
+  );
+};
+
+export const CharactersCard: React.FC<Props> = ({
+  id,
+  name,
+  image,
+  status,
+  created,
+}) => {
+  return (
+    <div data-testid={`character-${id}`}>
+      <Link to={`/character/${id}`}>
+        <Badge.Ribbon text={status} color={getBadgeColor(status || "Alive")}>
+          <Card
+            className="p-4"
+            hoverable
+            cover={
+              <ImageCard id={id} name={name} image={image} status={status} />
+            }
+          >
+            <Meta
+              data-testid={`meta-${id}`}
+              title={name}
+              description={formatDate(new Date(created || ""))}
+            />
+          </Card>
+        </Badge.Ribbon>
+      </Link>
+    </div>
+  );
+};
+
+export const SkeletonCharactersCard: React.FC = () => {
+  return (
+    <Card className="mx-2 my-2 !bg-gray-300 aspect-square animate-pulse h-80 w-full">
       <span className="ml-4 mt-[80%] flex h-[20px] w-[45%] animate-pulse rounded bg-gray-400 bottom-0" />
       <span className="ml-4 mt-3 flex h-[20px] w-[35%] animate-pulse rounded bg-gray-400 bottom-0" />
     </Card>
   );
 };
-
-export default CharactersCard;

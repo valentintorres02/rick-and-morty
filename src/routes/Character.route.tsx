@@ -1,11 +1,11 @@
 import { useParams } from "react-router-dom";
 
-type Props = {};
+import CharacterContainer from "../components/Character/Character.container";
 
-const CharacterRoute = (props: Props) => {
+const CharacterRoute = () => {
   const { characterId } = useParams();
 
-  return <div>Character: {characterId} </div>;
+  return <CharacterContainer characterId={characterId || ""} />;
 };
 
 export default CharacterRoute;

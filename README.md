@@ -1,6 +1,6 @@
 <h1>Rick and Morty app</h1>
 
-The demo for this project can be found [here]({deploy_link}).
+The demo for this project can be found [here](https://rick-and-morty-app02.netlify.app/).
 
 ## Table of Contents:
 
