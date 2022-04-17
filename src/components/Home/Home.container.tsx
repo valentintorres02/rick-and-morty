@@ -53,6 +53,7 @@ const HomeContainer: React.FC = () => {
                 image={character.image}
                 name={character.name}
                 status={character.status as Status}
+                created={character.created}
               />
             </Col>
           ))}

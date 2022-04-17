@@ -3,7 +3,7 @@ import { Badge, Card } from "antd";
 import { Link } from "react-router-dom";
 import { PictureOutlined } from "@ant-design/icons";
 
-import { Status, getBadgeColor } from "../../lib/utils";
+import { Status, formatDate, getBadgeColor } from "../../lib/utils";
 
 const { Meta } = Card;
 
@@ -12,25 +12,41 @@ type Props = {
   name?: string;
   image?: string;
   status?: Status;
+  created?: string;
 };
 
-const ImageCard: React.FC<Props> = ({ name, image }) => {
+type ImageSkeletonProps = {
+  imageLoaded: boolean;
+  id?: string;
+};
+
+const ImageSkeleton: React.FC<ImageSkeletonProps> = ({ imageLoaded, id }) => {
+  return (
+    <div
+      className={imageLoaded ? "hidden" : ""}
+      data-testid={`skeleton-image-${id}`}
+    >
+      <span
+        className={
+          "mx-auto block h-64 w-full animate-pulse rounded bg-gray-300"
+        }
+      >
+        <div className="flex items-center justify-center w-full h-full">
+          <PictureOutlined className="text-6xl text-gray-600" />
+        </div>
+      </span>
+    </div>
+  );
+};
+
+const ImageCard: React.FC<Props> = ({ id, name, image }) => {
   const [imageLoaded, setImageLoaded] = useState<boolean>(false);
 
   return (
     <>
-      <div className={imageLoaded ? "hidden" : ""}>
-        <span
-          className={
-            "mx-auto block h-64 w-full animate-pulse rounded bg-gray-300"
-          }
-        >
-          <div className="h-full w-full flex items-center justify-center">
-            <PictureOutlined className="text-6xl text-gray-600" />
-          </div>
-        </span>
-      </div>
+      <ImageSkeleton imageLoaded={imageLoaded} id={id} />
       <img
+        data-testid={`character-image-${id}`}
         className={imageLoaded ? "" : "hidden"}
         alt={name}
         src={image}
@@ -45,6 +61,7 @@ export const CharactersCard: React.FC<Props> = ({
   name,
   image,
   status,
+  created,
 }) => {
   return (
     <div data-testid={`character-${id}`}>
@@ -53,9 +70,13 @@ export const CharactersCard: React.FC<Props> = ({
           <Card
             className="p-4"
             hoverable
-            cover={<ImageCard name={name} image={image} />}
+            cover={<ImageCard id={id} name={name} image={image} />}
           >
-            <Meta title={name} description={name} />
+            <Meta
+              data-testid={`meta-${id}`}
+              title={name}
+              description={formatDate(new Date(created || ""))}
+            />
           </Card>
         </Badge.Ribbon>
       </Link>

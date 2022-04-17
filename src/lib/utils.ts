@@ -60,3 +60,9 @@ export function renderWithRouter(ui: JSX.Element, { route = "/" } = {}) {
 
   return render(ui, { wrapper: MemoryRouter });
 }
+
+export const formatDate = (date: Date, lang = navigator.language): string => {
+  return new Intl.DateTimeFormat(lang, {
+    dateStyle: "long",
+  }).format(date);
+};

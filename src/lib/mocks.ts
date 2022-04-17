@@ -12,4 +12,5 @@ export const character: ICharacter = {
   name: "Test",
   image: "https://rickandmortyapi.com/api/character/avatar/1.jpeg",
   status: "Alive",
+  created: "2017-11-04T18:48:46.250Z",
 };

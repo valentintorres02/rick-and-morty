@@ -14,6 +14,7 @@ export const charactersListFetcher = ({ page }: FetcherParams) => {
       name: true,
       image: true,
       status: true,
+      created: true,
     },
   });
 };
@@ -22,8 +23,11 @@ export type TypeCharactersListFetcher = Awaited<
   ReturnType<typeof charactersListFetcher>
 >;
 
-export const useCharacters = () => {
-  const getKey = (pageIndex: number, previousPageData: any) => {
+export function useCharacters() {
+  const getKey = (
+    pageIndex: number,
+    previousPageData: TypeCharactersListFetcher
+  ) => {
     pageIndex = pageIndex + 1;
     if (previousPageData && !previousPageData?.results?.length) return null;
     return { page: pageIndex };
@@ -47,4 +51,4 @@ export const useCharacters = () => {
     isLoading,
     isLoadingMore,
   };
-};
+}
