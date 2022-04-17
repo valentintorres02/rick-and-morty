@@ -1,21 +1,15 @@
+import InfiniteScroll from "react-infinite-scroll-component";
 import React from "react";
-import useSWR from "swr";
-import { Col, Row } from "antd";
+import { Col, Row, Spin } from "antd";
+
 import CharactersCard, {
   SkeletonCharactersCard,
 } from "../components/Home/Home.charactersCard";
 import { DEFAULT_CHARACTERS_CARD, Status } from "../lib/utils";
-import { charactersListFetcher } from "../components/Home/Home.api";
-import { noRevalidateOption } from "../config/constants";
+import { useCharacters } from "../components/Home/Home.api";
 
 const HomeRoute: React.FC = () => {
-  const { data: charactersList, error } = useSWR(
-    "charactersList",
-    charactersListFetcher,
-    noRevalidateOption
-  );
-
-  const isLoading = !error && !charactersList;
+  const { charactersList, isLoading, setSize, size } = useCharacters();
 
   return (
     <div>
@@ -29,19 +23,37 @@ const HomeRoute: React.FC = () => {
           ))}
         </Row>
       )}
-      <Row gutter={[24, 24]}>
-        {charactersList?.results?.map((character) => (
-          <Col sm={8} lg={6} xxl={4} xs={12} key={`character-${character.id}`}>
-            <CharactersCard
-              key={character.id}
-              id={character.id}
-              image={character.image}
-              name={character.name}
-              status={character.status as Status}
-            />
-          </Col>
-        ))}
-      </Row>
+      <InfiniteScroll
+        next={() => setSize(size + 1)}
+        hasMore={true}
+        loader={
+          <div className="flex justify-center py-8">
+            <Spin />
+          </div>
+        }
+        endMessage={<p>No more data</p>}
+        dataLength={charactersList?.length ?? 0}
+      >
+        <Row gutter={[24, 24]}>
+          {charactersList?.map((character) => (
+            <Col
+              sm={8}
+              lg={6}
+              xxl={4}
+              xs={12}
+              key={`character-${character?.id}`}
+            >
+              <CharactersCard
+                key={character.id}
+                id={character.id}
+                image={character.image}
+                name={character.name}
+                status={character.status as Status}
+              />
+            </Col>
+          ))}
+        </Row>
+      </InfiniteScroll>
     </div>
   );
 };

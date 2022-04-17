@@ -10,7 +10,15 @@ const NotFound = lazy(() => import("./routes/NotFound.route"));
 
 export default function App() {
   return (
-    <Suspense fallback={<Spin />}>
+    <Suspense
+      fallback={
+        <div className="flex h-screen">
+          <div className="m-auto">
+            <Spin />
+          </div>
+        </div>
+      }
+    >
       <Routes>
         <Route index element={<Home />} />
         <Route path="/character/:characterId" element={<Character />} />

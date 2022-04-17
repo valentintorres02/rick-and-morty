@@ -1,5 +1,8 @@
 import { RibbonProps } from "antd/lib/badge/Ribbon";
 
+import { Character } from "../graphql/client";
+import { TypeCharactersListFetcher } from "../components/Home/Home.api";
+
 /**
  * Get an environment variable by name. This function will throw
  * if the variable is not present. It will always return a string otherwise.
@@ -36,4 +39,16 @@ export function getBadgeColor(status: Status): RibbonProps["color"] {
     default:
       return "magenta";
   }
+}
+
+export function combineCharactersList(lists: TypeCharactersListFetcher[]) {
+  const combinedList: Character[] = [];
+
+  lists.forEach((list) => {
+    list?.results?.forEach((character) => {
+      combinedList.push(character as Character);
+    });
+  });
+
+  return combinedList;
 }
