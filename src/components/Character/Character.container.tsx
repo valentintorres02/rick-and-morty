@@ -1,6 +1,5 @@
 import React from "react";
 
-import Loader from "../shared/Loader";
 import NotFoundCharacter from "./Character.notFound";
 import CharacterDetail, { CharacterSkeleton } from "./Character.detail";
 import { useCharacterById } from "./Character.api";

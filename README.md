@@ -111,6 +111,8 @@ Inside the component or view we use the `useSWR` hook to make the actual request
 
 ### Installing
 
+It is required to have `yarn` installed on your PC.
+
 ```sh
 yarn install
 ```
