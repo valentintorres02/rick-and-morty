@@ -29,13 +29,16 @@ export const useCharacters = () => {
     return { page: pageIndex };
   };
 
-  const { data, size, setSize } = useSWRInfinite(getKey, charactersListFetcher);
+  const { data, size, setSize, error } = useSWRInfinite(
+    getKey,
+    charactersListFetcher
+  );
 
   const charactersList = combineCharactersList(data || []);
 
-  const isLoading = false;
-
   const isLoadingMore = data && typeof data[size - 1] === "undefined";
+
+  const isLoading = !error && !data;
 
   return {
     charactersList,
