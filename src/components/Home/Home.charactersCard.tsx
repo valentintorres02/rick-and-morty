@@ -47,17 +47,19 @@ export const CharactersCard: React.FC<Props> = ({
   status,
 }) => {
   return (
-    <Link to={`/character/${id}`}>
-      <Badge.Ribbon text={status} color={getBadgeColor(status || "Alive")}>
-        <Card
-          className="p-4"
-          hoverable
-          cover={<ImageCard name={name} image={image} />}
-        >
-          <Meta title={name} description={name} />
-        </Card>
-      </Badge.Ribbon>
-    </Link>
+    <div data-testid={`character-${id}`}>
+      <Link to={`/character/${id}`}>
+        <Badge.Ribbon text={status} color={getBadgeColor(status || "Alive")}>
+          <Card
+            className="p-4"
+            hoverable
+            cover={<ImageCard name={name} image={image} />}
+          >
+            <Meta title={name} description={name} />
+          </Card>
+        </Badge.Ribbon>
+      </Link>
+    </div>
   );
 };
 

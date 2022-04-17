@@ -1,4 +1,6 @@
+import { MemoryRouter } from "react-router-dom";
 import { RibbonProps } from "antd/lib/badge/Ribbon";
+import { render } from "@testing-library/react";
 
 import { Character } from "../graphql/client";
 import { TypeCharactersListFetcher } from "../components/Home/Home.api";
@@ -51,4 +53,10 @@ export function combineCharactersList(lists: TypeCharactersListFetcher[]) {
   });
 
   return combinedList;
+}
+
+export function renderWithRouter(ui: JSX.Element, { route = "/" } = {}) {
+  window.history.pushState({}, "Test page", route);
+
+  return render(ui, { wrapper: MemoryRouter });
 }
