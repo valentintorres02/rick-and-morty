@@ -2,6 +2,7 @@ import InfiniteScroll from "react-infinite-scroll-component";
 import React from "react";
 import { Col, Row, Spin } from "antd";
 
+import Separator from "../shared/Separator";
 import { CharactersCard, SkeletonCharactersCard } from "./Home.charactersCard";
 import { DEFAULT_CHARACTERS_CARD, Status } from "../../lib/utils";
 import { useCharacters } from "./Home.api";
@@ -11,7 +12,12 @@ const HomeContainer: React.FC = () => {
 
   return (
     <div>
-      <h1 className="p-8 text-2xl text-center">Rick and Morty</h1>
+      <h1 className="p-8 text-2xl text-center">Rick and Morty App</h1>
+      <div className="flex items-center justify-center gap-3 my-4">
+        <Separator />
+        <h3 className="text-lg">Characters</h3>
+        <Separator />
+      </div>
       {isLoading && (
         <Row gutter={[24, 24]}>
           {Array.from({ length: DEFAULT_CHARACTERS_CARD }, (_k, v) => (
