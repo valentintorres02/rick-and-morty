@@ -45,11 +45,15 @@ export function useCharacters(filter?: CharacterFilters) {
 
   const isLoading = !error && !data;
 
+  const hasMore = (data?.[0]?.results?.length ?? [].length) >= 20;
+
   return {
     charactersList,
     size,
     setSize,
     isLoading,
     isLoadingMore,
+    hasMore,
+    error,
   };
 }

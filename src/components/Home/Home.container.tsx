@@ -1,7 +1,9 @@
 import React, { Suspense, useState } from "react";
-import { Col, Row } from "antd";
+import { Button, Col, Row } from "antd";
 
 import CharactersList from "./Home.charactersList";
+import ErrorBoundary from "../ErrorBoundary/ErrorBoundary.container";
+import ErrorFallback from "../ErrorBoundary/ErrorBoundary.fallback";
 import SearchBar from "./Home.searchBar";
 import Separator from "../shared/Separator";
 import { DEFAULT_CHARACTERS_CARD } from "../../lib/utils";
@@ -31,9 +33,14 @@ const HomeContainer: React.FC = () => {
         <Separator />
       </div>
       <SearchBar setNameFilter={setNameFilter} />
-      <Suspense fallback={<HomeSkeleton />}>
-        <CharactersList nameFilter={nameFilter} />
-      </Suspense>
+      {/* 
+        API returns error when there's no characters matching the searched name instead of an empty array, so the app will crash
+      */}
+      <ErrorBoundary fallback={<ErrorFallback />}>
+        <Suspense fallback={<HomeSkeleton />}>
+          <CharactersList nameFilter={nameFilter} />
+        </Suspense>
+      </ErrorBoundary>
     </div>
   );
 };

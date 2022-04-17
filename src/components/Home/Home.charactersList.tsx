@@ -11,20 +11,20 @@ type Props = {
 };
 
 const CharactersList: React.FC<Props> = ({ nameFilter }) => {
-  const { charactersList, setSize, size } = useCharacters({
+  const { charactersList, setSize, size, hasMore, error } = useCharacters({
     name: nameFilter,
   });
 
   return (
     <InfiniteScroll
       next={() => setSize(size + 1)}
-      hasMore={true}
+      hasMore={hasMore}
       loader={
         <div className="flex justify-center py-8">
           <Spin />
         </div>
       }
-      endMessage={<p>No more data</p>}
+      endMessage={<p className="my-8 text-center">No more data</p>}
       dataLength={charactersList?.length ?? 0}
     >
       <Row gutter={[24, 24]}>
