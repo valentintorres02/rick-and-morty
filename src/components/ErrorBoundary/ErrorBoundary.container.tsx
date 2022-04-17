@@ -38,4 +38,5 @@ class ErrorBoundary extends Component<Props, State> {
   }
 }
 
-export default ErrorBoundary;
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+export default ErrorBoundary as any;
