@@ -71,8 +71,6 @@ We use the name of the component followed by the specific components associated 
 
 Inside the `__tests__` folder we will add all tests the developer think its necessary to add. The idea is to test user interactions with the DOM.
 
-We will use CSS modules as a way to organize our Tailwind classes and reuse them as possible.
-
 We can add custom classes inside `src/main.css` or add custom CSS attributes inside `tailwind.config.js` by extending Tailwind current library and adding new ones.
 
 ## API Requests Handling
