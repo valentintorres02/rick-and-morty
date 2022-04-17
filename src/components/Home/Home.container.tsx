@@ -1,5 +1,5 @@
 import React, { Suspense, useState } from "react";
-import { Button, Col, Row } from "antd";
+import { Col, Row } from "antd";
 
 import CharactersList from "./Home.charactersList";
 import ErrorBoundary from "../ErrorBoundary/ErrorBoundary.container";

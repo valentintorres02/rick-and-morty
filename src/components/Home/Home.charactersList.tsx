@@ -11,7 +11,7 @@ type Props = {
 };
 
 const CharactersList: React.FC<Props> = ({ nameFilter }) => {
-  const { charactersList, setSize, size, hasMore, error } = useCharacters({
+  const { charactersList, setSize, size, hasMore } = useCharacters({
     name: nameFilter,
   });
 
