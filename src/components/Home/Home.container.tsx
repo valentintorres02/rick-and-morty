@@ -9,6 +9,7 @@ import Separator from "../shared/Separator";
 
 const HomeContainer: React.FC = () => {
   const [nameFilter, setNameFilter] = useState<string>("");
+  const [page, setPage] = useState<number>(0);
 
   return (
     <div>
@@ -18,13 +19,17 @@ const HomeContainer: React.FC = () => {
         <h3 className="text-lg">Characters</h3>
         <Separator />
       </div>
-      <SearchBar setNameFilter={setNameFilter} />
+      <SearchBar setNameFilter={setNameFilter} setPage={setPage} />
       {/* 
         API returns error when there's no characters matching the searched name instead of an empty array, so the app will crash
       */}
       <ErrorBoundary fallback={<ErrorFallback />}>
         <Suspense fallback={<HomeSkeleton />}>
-          <CharactersList nameFilter={nameFilter} />
+          <CharactersList
+            nameFilter={nameFilter}
+            page={page}
+            setPage={setPage}
+          />
         </Suspense>
       </ErrorBoundary>
     </div>

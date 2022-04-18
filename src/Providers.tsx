@@ -5,6 +5,7 @@ import { StrictMode, Suspense } from "react";
 import ErrorBoundary from "./components/ErrorBoundary/ErrorBoundary.container";
 import ErrorFallback from "./components/ErrorBoundary/ErrorBoundary.fallback";
 import Loader from "./components/shared/Loader";
+import ScrollToTop from "./components/shared/ScrollToTop";
 import { trackLiveQueries } from "./lib/liveQueries";
 
 const swrConfig: SWRConfiguration = {
@@ -18,6 +19,7 @@ export const Providers: React.FC = ({ children }) => (
       <Suspense fallback={<Loader />}>
         <BrowserRouter>
           <SWRConfig value={{ ...swrConfig, provider: () => new Map() }}>
+            <ScrollToTop />
             {children}
           </SWRConfig>
         </BrowserRouter>
