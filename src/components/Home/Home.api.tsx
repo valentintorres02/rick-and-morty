@@ -1,15 +1,15 @@
-import useSWRInfinite from "swr/infinite";
+import useSWR from "swr";
 
 import { CharacterFilters } from "../../lib/types";
+import { FilterCharacter } from "../../graphql/client";
 import { client } from "../../config/client";
-import { combineCharactersList } from "../../lib/utils";
+import { noRevalidateOption } from "../../config/constants";
 
-interface FetcherParams {
-  page: number;
-  filter?: CharacterFilters;
-}
-
-export const charactersListFetcher = ({ page, filter }: FetcherParams) => {
+export const charactersListFetcher = (
+  _key: string,
+  page: number,
+  filter?: FilterCharacter
+) => {
   return client.chain.query.characters({ page, filter }).get({
     results: {
       id: true,
@@ -25,35 +25,9 @@ export type TypeCharactersListFetcher = Awaited<
   ReturnType<typeof charactersListFetcher>
 >;
 
-export function useCharacters(filter?: CharacterFilters) {
-  const getKey = (
-    pageIndex: number,
-    previousPageData: TypeCharactersListFetcher
-  ) => {
-    pageIndex = pageIndex + 1;
-    if (previousPageData && !previousPageData?.results?.length) return null;
-    return { page: pageIndex, filter };
-  };
-
-  const { data, size, setSize, error } = useSWRInfinite(
-    getKey,
-    charactersListFetcher
+export const useCharacters = (page: number, filter?: CharacterFilters) =>
+  useSWR(
+    ["characters", page, filter],
+    charactersListFetcher,
+    noRevalidateOption
   );
-  const charactersList = combineCharactersList(data || []);
-
-  const isLoadingMore = data && typeof data[size - 1] === "undefined";
-
-  const isLoading = !error && !data;
-
-  const hasMore = (data?.[0]?.results?.length ?? [].length) >= 20;
-
-  return {
-    charactersList,
-    size,
-    setSize,
-    isLoading,
-    isLoadingMore,
-    hasMore,
-    error,
-  };
-}

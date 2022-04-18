@@ -3,10 +3,14 @@ import { Input } from "antd";
 
 type Props = {
   setNameFilter: (name: string) => void;
+  setPage: (page: number) => void;
 };
 
-const SearchBar: React.FC<Props> = ({ setNameFilter }) => {
-  const onSearch = (value: string) => setNameFilter(value);
+const SearchBar: React.FC<Props> = ({ setNameFilter, setPage }) => {
+  const onSearch = (value: string) => {
+    setPage(1);
+    setNameFilter(value);
+  };
 
   const { Search } = Input;
   return (
