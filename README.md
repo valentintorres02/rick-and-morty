@@ -1,4 +1,4 @@
-<h1>Rick and Morty app</h1>
+# Rick and Morty app
 
 The demo for this project can be found [here](https://rick-and-morty-app02.netlify.app/).
 
@@ -6,26 +6,40 @@ The demo for this project can be found [here](https://rick-and-morty-app02.netli
 
 - [Folder Structure](#folder-structure)
 - [Stack](#stack)
-- [Usage](#usage)
-  - [Installing](#installing)
+- [Installing](#installing)
   - [Running dev](#running-dev)
   - [Unit Tests](#unit-tests)
   - [Main branches](#main-branches)
-  - [Sub-branches](#sub-branches)
 
 ## Folder Structure
 
-````sh
+```sh
 📦src
  ┣ 📂components
  ┃ ┣ 📂Character
+ ┃ ┃ ┣ 📂__tests__
+ ┃ ┃ ┃ ┗ 📜Character.detail.test.tsx
+ ┃ ┃ ┣ 📜Character.api.tsx
+ ┃ ┃ ┣ 📜Character.container.tsx
+ ┃ ┃ ┣ 📜Character.detail.tsx
+ ┃ ┃ ┗ 📜Character.notFound.tsx
  ┃ ┣ 📂ErrorBoundary
  ┃ ┃ ┣ 📜ErrorBoundary.container.tsx
  ┃ ┃ ┗ 📜ErrorBoundary.fallback.tsx
- ┃ ┗ 📂Home
+ ┃ ┣ 📂Home
  ┃ ┃ ┣ 📂__tests__
+ ┃ ┃ ┃ ┗ 📜Home.charactersCard.test.tsx
  ┃ ┃ ┣ 📜Home.api.tsx
- ┃ ┃ ┗ 📜Home.charactersCard.tsx
+ ┃ ┃ ┣ 📜Home.charactersCard.tsx
+ ┃ ┃ ┣ 📜Home.charactersList.tsx
+ ┃ ┃ ┣ 📜Home.container.tsx
+ ┃ ┃ ┣ 📜Home.searchBar.tsx
+ ┃ ┃ ┗ 📜Home.skeleton.tsx
+ ┃ ┗ 📂shared
+ ┃ ┃ ┣ 📜GoBack.tsx
+ ┃ ┃ ┣ 📜Loader.tsx
+ ┃ ┃ ┣ 📜ScrollToTop.tsx
+ ┃ ┃ ┗ 📜Separator.tsx
  ┣ 📂config
  ┃ ┣ 📜client.ts
  ┃ ┗ 📜constants.ts
@@ -49,14 +63,14 @@ The demo for this project can be found [here](https://rick-and-morty-app02.netli
  ┣ 📂styles
  ┃ ┗ 📜tailwind.css
  ┣ 📜App.css
- ┣ 📜App.test.tsx
  ┣ 📜App.tsx
  ┣ 📜index.tsx
  ┣ 📜Providers.tsx
  ┣ 📜react-app-env.d.ts
- ┗ 📜setupTests.ts```
+ ┗ 📜setupTests.ts
+```
 
-The main views will be in `src/routes` folder.
+Main views are in `src/routes` folder.
 
 ## Component structure
 
@@ -65,19 +79,13 @@ components/
 └── Home/
     ├── __tests__/
     ├── Home.charactersCard.tsx
-````
-
-We use the name of the component followed by the specific components associated with them, this provides an easier experience for the developer tracking files when they have too many opened tabs.
-
-Inside the `__tests__` folder we will add all tests the developer think its necessary to add. The idea is to test user interactions with the DOM.
-
-We can add custom classes inside `src/main.css` or add custom CSS attributes inside `tailwind.config.js` by extending Tailwind current library and adding new ones.
+```
 
 ## API Requests Handling
 
-We use a mix of `GenQL` and `useSWR` hooks. We configure the client from `GenQL` which we use to make requests to the backend.
+Use of a mix of `GenQL` and `useSWR` hooks. `GenQL` client is configured and used to make requests to the open GraphQL API.
 
-We will add a `.api.tsx` file inside the component, for example:
+Each component will have a file `.api.tsx` for example:
 
 ```sh
 components/
@@ -107,8 +115,6 @@ Inside the component or view we use the `useSWR` hook to make the actual request
 - [x] [swr](https://swr.vercel.app/) as the data fetching hook.
 - [x] [genql](https://genql.vercel.app/) as the graphql client.
 
-## Usage
-
 ### Installing
 
 It is required to have `yarn` installed on your PC.
@@ -126,9 +132,7 @@ yarn run codegen
 yarn run start
 ```
 
-The `yarn run codegen` creates the `graphql` folder which will have the genql client ready to use.
-
-## Types of tests:
+`yarn run codegen` creates the `graphql` folder which will have the genql client ready to use.
 
 ### Unit Tests
 
@@ -138,25 +142,7 @@ yarn run test
 
 ### Main branches
 
-We currently handle the following branches:
+The following branches are handled:
 
 - `master`.
 - `dev`.
-
-### Sub-branches
-
-We will not upload anything directly to main, if the developer wants to add a feature, then they have to create a branch, the options available are:
-
-- `feat/<name-of-the-feature>`.
-- `refactor/<name-of-the-refactor>`.
-- `fix/<name-of-the-fixed-feature>`.
-
-From `dev` do:
-
-1. `git pull`.
-2. Then create a branch, for example `git checkout -b feat/awesome-form`
-3. Do your work.
-4. Proceed to commit your feature using a descriptive name.
-5. Push your work to your branch and create a pull request.
-
----
