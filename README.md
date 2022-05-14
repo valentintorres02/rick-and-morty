@@ -1,15 +1,18 @@
-# Rick and Morty app
+<img src="http://assets.stickpng.com/images/58f37731a4fa116215a92411.png" height="200px" align="right"/>
 
-The demo for this project can be found [here](https://rick-and-morty-app02.netlify.app/).
+# Rick and Morty App
+
+[![code style: prettier](https://img.shields.io/badge/code_style-prettier-ff69b4.svg)](https://github.com/prettier/prettier)
+
+Deployed demo [here](https://rick-and-morty-app02.netlify.app/).
 
 ## Table of Contents:
 
 - [Folder Structure](#folder-structure)
 - [Stack](#stack)
-- [Installing](#installing)
+- [Installation](#installing)
   - [Running dev](#running-dev)
   - [Unit Tests](#unit-tests)
-  - [Main branches](#main-branches)
 
 ## Folder Structure
 
@@ -72,33 +75,6 @@ The demo for this project can be found [here](https://rick-and-morty-app02.netli
 
 Main views are in `src/routes` folder.
 
-## Component structure
-
-```sh
-components/
-└── Home/
-    ├── __tests__/
-    ├── Home.charactersCard.tsx
-```
-
-## API Requests Handling
-
-Use of a mix of `GenQL` and `useSWR` hooks. `GenQL` client is configured and used to make requests to the open GraphQL API.
-
-Each component will have a file `.api.tsx` for example:
-
-```sh
-components/
-└── Home/
-    ├── __tests__/
-    ├── Home.api.tsx
-    ├── Home.characterCard.tsx
-```
-
-Where that file will import the client to be used as the fetcher generator. We also include the API types as export to be used in the component.
-
-Inside the component or view we use the `useSWR` hook to make the actual request and handle our API data.
-
 ## Stack
 
 - [x] [Yarn](https://yarnpkg.com/) as the package manager.
@@ -115,7 +91,7 @@ Inside the component or view we use the `useSWR` hook to make the actual request
 - [x] [swr](https://swr.vercel.app/) as the data fetching hook.
 - [x] [genql](https://genql.vercel.app/) as the graphql client.
 
-### Installing
+## Installation
 
 It is required to have `yarn` installed on your PC.
 
@@ -139,10 +115,3 @@ yarn run start
 ```sh
 yarn run test
 ```
-
-### Main branches
-
-The following branches are handled:
-
-- `master`.
-- `dev`.
